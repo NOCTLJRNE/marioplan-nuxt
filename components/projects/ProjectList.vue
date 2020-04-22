@@ -1,19 +1,25 @@
 <template>
   <div class="project-list section">
-    <ProjectSummary />
-    <ProjectSummary />
-    <ProjectSummary />
+    <ProjectSummary
+      v-for="project of projectsList"
+      v-bind:project="project"
+      v-bind:key="project.id"
+    />
   </div>
 </template>
 
 <script>
 import ProjectSummary from "@/components/projects/ProjectSummary.vue";
 export default {
+  props: {
+    projectsList: {
+      required: true
+    }
+  },
   components: {
     ProjectSummary
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -72,6 +72,11 @@ export default {
       fixed: false,
       items: [
         {
+          icon: "mdi-home",
+          title: "Home",
+          to: "/"
+        },
+        {
           icon: "mdi-account-alert-outline",
           title: "Sign Up",
           to: "/signup"
@@ -85,12 +90,12 @@ export default {
           icon: "mdi-file-multiple-outline",
           title: "New Project",
           to: "/createproject"
-        },
-        {
-          icon: "mdi-account-arrow-right-outline",
-          title: "Log Out",
-          to: "/"
         }
+        // {
+        //   icon: "mdi-account-arrow-right-outline",
+        //   title: "Log Out",
+        //   to: "/"
+        // }
       ],
       miniVariant: true,
       right: true,

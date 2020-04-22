@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { required } from "vee-validate/dist/rules";
 import {
   extend,
@@ -67,8 +68,18 @@ export default {
   }),
 
   methods: {
-    submit() {
-      this.$refs.observer.validate();
+    ...mapActions("projects", {
+      createProject: "createProject" // map this.$store.dispatch("projects/createProject", x) to this.createProject(x);
+    }),
+    async submit() {
+      // this.$refs.observer.validate().then(resp => console.log(resp)).catch(error => console.error(error));
+      let FormValid = await this.$refs.observer.validate();
+      if (FormValid) {
+        // this.$store.dispatch("projects/createProject", this.projectDetails);
+        this.createProject(this.projectDetails);
+      } else {
+        console.log("WRONGGG");
+      }
     },
     clear() {
       this.name = "";
@@ -76,6 +87,14 @@ export default {
       this.select = null;
       this.checkbox = null;
       this.$refs.observer.reset();
+    }
+  },
+  computed: {
+    projectDetails() {
+      return {
+        title: this.title,
+        description: this.description
+      };
     }
   }
 };
