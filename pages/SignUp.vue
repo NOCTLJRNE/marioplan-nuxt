@@ -58,11 +58,7 @@
             @click:append="show1 = !show1"
           ></v-text-field>
         </ValidationProvider>
-        <ValidationProvider
-          name="Confirmation password"
-          rules="required"
-          v-slot="{ errors }"
-        >
+        <ValidationProvider name="confirm" rules="required" v-slot="{ errors }">
           <v-text-field
             required
             v-model="confirmation"
@@ -87,6 +83,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { required, email, min, max } from "vee-validate/dist/rules";
 import {
   extend,
@@ -145,15 +142,36 @@ export default {
   }),
 
   methods: {
-    submit() {
-      this.$refs.observer.validate();
+    ...mapActions("auth", {
+      signUp: "signUp"
+    }),
+    async submit() {
+      let formValid = await this.$refs.observer.validate();
+      if (formValid) {
+        let credentials = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password
+        };
+        this.signUp(credentials);
+        // try {
+        //   await this.$fireAuth.createUserWithEmailAndPassword(
+        //     this.email,
+        //     this.password
+        //   );
+        // } catch (e) {
+        //   console.error(e);
+        // }
+      } else {
+        console.log("Wrong");
+      }
     },
     clear() {
       this.firstName = "";
       this.lastName = "";
       this.email = "";
-      this.select = null;
-      this.checkbox = null;
+      this.password = "";
       this.$refs.observer.reset();
     }
   }

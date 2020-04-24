@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { required, email, max, min } from "vee-validate/dist/rules";
 import {
   extend,
@@ -126,14 +127,28 @@ export default {
   }),
 
   methods: {
-    submit() {
-      this.$refs.observer.validate();
+    ...mapActions("auth", { signIn: "signIn" }),
+    async submit() {
+      // console.log(this.email);
+      // console.log(this.password);
+      let formValid = await this.$refs.observer.validate();
+      if (formValid) {
+        this.signIn({ email: this.email, password: this.password });
+        // try {
+        //   let result = await this.$fireAuth.signInWithEmailAndPassword(
+        //     this.email,
+        //     this.password
+        //   );
+        //   console.log("result: ", result.user.uid);
+        // } catch (e) {
+        //   console.error(e);
+        // }
+      }
     },
     clear() {
       this.name = "";
       this.email = "";
-      this.select = null;
-      this.checkbox = null;
+      this.password = "";
       this.$refs.observer.reset();
     }
   }

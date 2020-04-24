@@ -41,7 +41,34 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    [
+      "@nuxtjs/firebase",
+      {
+        config: {
+          apiKey: "AIzaSyAxM6O9R5awDgJK9pF0WaD43uDlQmPtvcU",
+          authDomain: "react-redux-firebase-b2144.firebaseapp.com",
+          databaseURL: "https://react-redux-firebase-b2144.firebaseio.com",
+          projectId: "react-redux-firebase-b2144",
+          storageBucket: "react-redux-firebase-b2144.appspot.com",
+          messagingSenderId: "288232662118",
+          appId: "1:288232662118:web:1aa1d6c9a9334f3fef79a7",
+          measurementId: "G-TSYCS7TNJ8"
+        },
+        services: {
+          auth: {
+            persistence: "local",
+            initialize: {
+              // onAuthStateChangedMutation: "SET_AUTH_USER",
+              onAuthStateChangedAction: "onAuthStateChanged"
+            },
+            ssr: false // default
+          },
+          firestore: true
+        }
+      }
+    ]
+  ],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
