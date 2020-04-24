@@ -11,7 +11,14 @@ export const mutations = {
   }
 };
 export const actions = {
-  createProject({ commit, state, rootState }, project) {
+  async createProject({ commit, state, rootState }, project) {
+    await this.$fireStore.collection("projects").add({
+      ...project,
+      authorFirstName: `${rootState.authUser.fullName.split(" ")[0]}`,
+      authorLastName: `${rootState.authUser.fullName.split(" ")[1]}`,
+      authorId: rootState.authUser.uid,
+      createdAt: new Date()
+    });
     commit("CREATE_PROJECT", project);
   }
 };

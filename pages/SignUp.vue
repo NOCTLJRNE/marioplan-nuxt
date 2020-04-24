@@ -79,11 +79,16 @@
         <v-btn @click="clear">clear</v-btn>
       </form>
     </ValidationObserver>
+    <v-card-text
+      v-if="authError && authType == 'SIGNUP_ERROR'"
+      style="color: red"
+      >{{ authError.message }}</v-card-text
+    >
   </v-card>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { required, email, min, max } from "vee-validate/dist/rules";
 import {
   extend,
@@ -123,6 +128,10 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver
+  },
+  created() {
+    // console.log("fireStore: ", this.$fireStore);
+    // console.log("fireStoreObj: ", this.$fireStoreObj);
   },
   data: () => ({
     show1: false,
@@ -174,6 +183,12 @@ export default {
       this.password = "";
       this.$refs.observer.reset();
     }
+  },
+  computed: {
+    ...mapState("auth", {
+      authType: "authType",
+      authError: "authError"
+    })
   }
 };
 </script>

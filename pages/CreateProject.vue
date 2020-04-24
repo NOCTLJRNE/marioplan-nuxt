@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { required } from "vee-validate/dist/rules";
 import {
   extend,
@@ -54,6 +54,9 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver
+  },
+  mounted() {
+    // console.log("user doc", this.currentUsersDoc);
   },
   data: () => ({
     show1: false,
@@ -90,11 +93,17 @@ export default {
     }
   },
   computed: {
+    ...mapState(["authUser"]),
     projectDetails() {
       return {
         title: this.title,
         description: this.description
       };
+    },
+    currentUsersDoc() {
+      if (this.authUser.uid) {
+        return this.$fireStore.collection("users").doc(this.authUser.uid);
+      } else return "";
     }
   }
 };

@@ -18,6 +18,7 @@
     "firebase": "^7.14.1",
     "nuxt": "^2.0.0",
     "vee-validate": "^3.3.0",
+    "vuefire": "^2.2.2",
     "vuexfire": "^3.2.2"
   },
   "devDependencies": {
