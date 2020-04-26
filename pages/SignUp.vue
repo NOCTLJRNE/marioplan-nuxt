@@ -1,7 +1,7 @@
 <template>
   <v-card color="blue-grey lighten-2" class="pa-5">
     <ValidationObserver ref="observer" v-slot="{ validate, reset }">
-      <form>
+      <form v-on:keyup.enter="submit">
         <ValidationProvider
           v-slot="{ errors }"
           name="First Name"

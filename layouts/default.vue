@@ -10,15 +10,16 @@
       <v-list>
         <v-list-item>
           <v-list-item-action v-if="miniVariant">
-            <span style="color: #03A9F4">NN</span>
+            <span style="color: #03A9F4">{{ initials }}</span>
           </v-list-item-action>
           <v-list-item-action v-else>&nbsp</v-list-item-action>
           <v-list-item-content style="display: block">
-            <v-btn fab color="light-blue">NN</v-btn>
+            <v-btn fab color="light-blue">{{ initials }}</v-btn>
           </v-list-item-content>
         </v-list-item>
         <v-list-item
           v-for="(item, i) in items"
+          v-on:click="userSignOut(item)"
           :key="i"
           :to="item.to"
           router
@@ -64,6 +65,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -90,18 +92,34 @@ export default {
           icon: "mdi-file-multiple-outline",
           title: "New Project",
           to: "/createproject"
+        },
+        {
+          icon: "mdi-account-arrow-right-outline",
+          title: "Sign Out",
+          to: "/signout"
         }
-        // {
-        //   icon: "mdi-account-arrow-right-outline",
-        //   title: "Log Out",
-        //   to: "/"
-        // }
       ],
       miniVariant: true,
       right: true,
       rightDrawer: false,
       title: "Mario Plan"
     };
+  },
+  methods: {
+    userSignOut(item) {
+      // console.log(item.to);
+      if (item.to == "/signout") {
+        this.$fireAuth.signOut();
+      }
+    }
+  },
+  computed: {
+    ...mapState({
+      initials: state =>
+        state.authUser.initials != null
+          ? state.authUser.initials.toUpperCase()
+          : "📇"
+    })
   }
 };
 </script>

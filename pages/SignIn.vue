@@ -1,7 +1,7 @@
 <template>
   <v-card color="blue-grey lighten-2" class="pa-5">
     <ValidationObserver ref="observer" v-slot="{ validate, reset }">
-      <form>
+      <form v-on:keyup.enter="submit">
         <!-- <ValidationProvider
           v-slot="{ errors }"
           name="Name"
@@ -70,7 +70,13 @@
           ></v-checkbox>
         </ValidationProvider> -->
 
-        <v-btn class="mr-4" @click="submit" color="success">sign in</v-btn>
+        <v-btn
+          class="mr-4"
+          v-on:keyup.enter="submit"
+          @click="submit"
+          color="success"
+          >sign in</v-btn
+        >
         <v-btn @click="clear">clear</v-btn>
       </form>
     </ValidationObserver>

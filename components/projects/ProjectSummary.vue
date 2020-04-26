@@ -6,16 +6,27 @@
     hover
   >
     <v-card-title>{{ project.title }}</v-card-title>
-    <v-card-subtitle>1am 21th Apr 2020</v-card-subtitle>
-    <v-card-text>Posted by me ......</v-card-text>
+    <v-card-text>{{ project.description }}</v-card-text>
+    <v-card-subtitle>{{ dateFormat1 }}</v-card-subtitle>
   </v-card>
 </template>
 
 <script>
+import moment from "moment";
 export default {
   props: {
     project: {
       required: true
+    }
+  },
+  computed: {
+    date() {
+      return moment(this.project.createdAt.toDate()).calendar();
+    },
+    dateFormat1() {
+      return moment(this.project.createdAt.toDate()).format(
+        "dddd, MMMM Do YYYY, h:mm:ss a"
+      );
     }
   }
 };

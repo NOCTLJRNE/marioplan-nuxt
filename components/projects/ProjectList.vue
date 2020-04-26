@@ -3,7 +3,7 @@
     <ProjectSummary
       v-for="project of projectsList"
       v-bind:project="project"
-      v-bind:key="project.id"
+      :key="project.id"
     />
   </div>
 </template>
