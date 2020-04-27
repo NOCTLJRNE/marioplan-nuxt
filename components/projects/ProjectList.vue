@@ -1,7 +1,8 @@
 <template>
   <div class="project-list section">
+    <h2>Projects List</h2>
     <ProjectSummary
-      v-for="project of projectsList"
+      v-for="project in projectsList"
       v-bind:project="project"
       :key="project.id"
     />

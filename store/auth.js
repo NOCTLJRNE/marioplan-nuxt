@@ -28,6 +28,7 @@ export const actions = {
       );
       //   console.log("result: ", result.user.uid);
       commit("AUTH", { type: "SIGNIN_SUCCESS", error: null });
+      //   this.$router.push({ path: "/" });
     } catch (e) {
       commit("AUTH", { type: "SIGNIN_ERROR", error: e });
       console.error(e);
@@ -48,6 +49,11 @@ export const actions = {
           lastName: credentials.lastName,
           initials: credentials.firstName[0] + credentials.lastName[0]
         });
+      //   await this.$fireStore.collection("notifications").add({
+      //     user: credentials.firstName + credentials.lastName,
+      //     content: "joined the club",
+      //     time: new Date()
+      //   });
       commit("AUTH", { type: "SIGNUP_SUCCESS", error: null });
     } catch (e) {
       commit("AUTH", { type: "SIGNUP_ERROR", error: e });

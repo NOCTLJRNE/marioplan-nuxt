@@ -19,6 +19,11 @@ export const actions = {
       authorId: rootState.authUser.uid,
       createdAt: new Date()
     });
+    // await this.$fireStore.collection("notifications").add({
+    //   user: rootState.authUser.fullName,
+    //   content: "created a project !",
+    //   time: new Date()
+    // });
     commit("CREATE_PROJECT", project);
   }
 };

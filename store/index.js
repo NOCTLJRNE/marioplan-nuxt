@@ -22,6 +22,7 @@ export const mutations = {
         uid: authUser.uid,
         email: authUser.email
       };
+      this.$router.push({ path: "/" });
     }
   },
   SET_USER_NAME(state, { fullName, initials }) {
@@ -53,7 +54,7 @@ export const actions = {
             console.log("No such document!");
           } else {
             let data = doc.data();
-            let fullName = data.firstName + data.lastName;
+            let fullName = data.firstName + " " + data.lastName;
             commit("SET_USER_NAME", {
               fullName: fullName,
               initials: data.initials
