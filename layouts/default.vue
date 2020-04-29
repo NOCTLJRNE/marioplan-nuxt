@@ -18,7 +18,7 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in routesArray"
           v-on:click="userSignOut(item)"
           :key="i"
           :to="item.to"
@@ -78,15 +78,15 @@ export default {
           title: "Home",
           to: "/"
         },
-        {
-          icon: "mdi-account-alert-outline",
-          title: "Sign Up",
-          to: "/signup"
-        },
+        // {
+        //   icon: "mdi-account-alert-outline",
+        //   title: "Sign Up",
+        //   to: "/signup"
+        // },
         {
           icon: "mdi-account-arrow-left-outline",
-          title: "Sign In",
-          to: "/signin"
+          title: "Sign In/Sign Up",
+          to: "/signinup"
         },
         {
           icon: "mdi-file-multiple-outline",
@@ -118,7 +118,43 @@ export default {
       initials: state =>
         state.authUser.initials != null
           ? state.authUser.initials.toUpperCase()
-          : "📇"
+          : "📇",
+      routesArray: state =>
+        state.authUser.initials != null
+          ? [
+              {
+                icon: "mdi-home",
+                title: "Home",
+                to: "/"
+              },
+              {
+                icon: "mdi-file-multiple-outline",
+                title: "New Project",
+                to: "/createproject"
+              },
+              {
+                icon: "mdi-account-arrow-right-outline",
+                title: "Sign Out",
+                to: "/signout"
+              }
+            ]
+          : [
+              {
+                icon: "mdi-home",
+                title: "Home",
+                to: "/"
+              },
+              // {
+              //   icon: "mdi-account-alert-outline",
+              //   title: "Sign Up",
+              //   to: "/signup"
+              // },
+              {
+                icon: "mdi-account-arrow-left-outline",
+                title: "Sign In/Sign Up",
+                to: "/signinup"
+              }
+            ]
     })
   }
 };

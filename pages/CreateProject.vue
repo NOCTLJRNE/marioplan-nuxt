@@ -1,27 +1,13 @@
 <template>
   <v-card color="blue-grey lighten-2" class="pa-5">
     <ValidationObserver ref="observer" v-slot="{ validate, reset }">
-      <form>
+      <form v-on:keyup.enter="submit">
         <h3>Create A Project</h3>
         <ValidationProvider v-slot="{ errors }" name="Title" rules="required">
-          <v-text-field
-            v-model="title"
-            :error-messages="errors"
-            label="Title"
-            required
-          ></v-text-field>
+          <v-text-field v-model="title" :error-messages="errors" label="Title" required></v-text-field>
         </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="Description"
-          rules="required"
-        >
-          <v-textarea
-            v-model="description"
-            :error-messages="errors"
-            label="Description"
-            required
-          ></v-textarea>
+        <ValidationProvider v-slot="{ errors }" name="Description" rules="required">
+          <v-textarea v-model="description" :error-messages="errors" label="Description" required></v-textarea>
         </ValidationProvider>
 
         <br />
@@ -55,8 +41,16 @@ export default {
     ValidationProvider,
     ValidationObserver
   },
+  beforeRouteEnter(to, from, next) {
+    if (to.name === "CreateProject")
+      next(vm => {
+        if (vm.authUser.uid == null) return { name: "SignInUp" };
+      });
+    else next();
+  },
   mounted() {
     // console.log("user doc", this.currentUsersDoc);
+    if (this.authUser.uid == null) this.$router.push({ path: "signinup" });
   },
   data: () => ({
     show1: false,

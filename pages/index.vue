@@ -17,9 +17,17 @@
 <script>
 // import Logo from '~/components/Logo.vue'
 import dashboard from "@/pages/dashboard.vue";
+import { mapState } from "vuex";
 export default {
   components: {
     dashboard
+  },
+  // beforeRouteLeave(to, from, next) {
+  //   if (to.name === "CreateProject") next({ name: "SignInUp" });
+  //   else next();
+  // },
+  computed: {
+    ...mapState(["authUser"])
   }
 };
 </script>

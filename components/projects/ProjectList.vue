@@ -1,11 +1,9 @@
 <template>
   <div class="project-list section">
     <h2>Projects List</h2>
-    <ProjectSummary
-      v-for="project in projectsList"
-      v-bind:project="project"
-      :key="project.id"
-    />
+    <transition-group name="project" tag="div">
+      <ProjectSummary v-for="project in projectsList" v-bind:project="project" :key="project.id" />
+    </transition-group>
   </div>
 </template>
 
@@ -23,4 +21,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style >
+.project-enter-active,
+.project-leave-active {
+  transition: all 1s;
+}
+.project-enter,
+.project-leave-to {
+  opacity: 0;
+}
+</style>
