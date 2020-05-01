@@ -16,6 +16,24 @@
         <v-btn @click="clear">clear</v-btn>
       </form>
     </ValidationObserver>
+    <v-dialog v-model="loading" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-container>
+          <v-row align="center" justify="center">
+            <v-col cols="12">
+              <v-card-text v-if="creating" class="text-center">
+                Creating your awesome project !
+                <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+              </v-card-text>
+              <v-card-text v-else class="text-center">Project created !</v-card-text>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <v-btn v-on:click="loading=false" color="success">OK</v-btn>
+          </v-row>
+        </v-container>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -58,6 +76,8 @@ export default {
     title: "",
     description: "",
     password: "",
+    dialog: true,
+    loading: false,
     rules: {
       required: value => !!value || "Required.",
       min: v => v.length >= 8 || "Min 8 characters"
@@ -73,6 +93,7 @@ export default {
       let FormValid = await this.$refs.observer.validate();
       if (FormValid) {
         // this.$store.dispatch("projects/createProject", this.projectDetails);
+        this.loading = true;
         this.createProject(this.projectDetails);
       } else {
         console.log("WRONGGG");
@@ -87,7 +108,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(["authUser"]),
+    ...mapState({
+      authUser: state => state.authUser,
+      creating: state => state.projects.creating
+    }),
     projectDetails() {
       return {
         title: this.title,
