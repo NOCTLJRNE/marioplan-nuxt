@@ -9,6 +9,7 @@
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
+    "startPublic": "NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt-ts start",
     "heroku-postbuild": "yarn build",
     "proxy8080": "PORT=8080 node nuxtProxy.js",
     "proxyServer": "npm-run-all --parallel start proxy8080"
